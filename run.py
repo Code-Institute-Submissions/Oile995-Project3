@@ -19,15 +19,49 @@ SHEET = GSPREAD_CLIENT.open('Leaderboard')
 leaderboard = SHEET.worksheet('Leaderboard')
 def game_loop(word):
     print("welcome to game loop")
+    while True:
+        username = input("Enter your name:")
+        if len(username) == 0:
+            print("Please enter a username!")
+            continue
+        elif username.isdigit():
+            print("Username must include letters!") 
+            continue
+        else:
+            break
+    input("PRESS ANYTHING TO START")
     print(word)
-    hidden_word = ""
-    for letter in word:
-        hidden_word += "_ "
-    print(hidden_word)
+    hidden_word = []
+    for i in range(len(word)):
+        hidden_word.insert(i, "_")
+    print(*hidden_word, sep = " ")
     guesses = 10
     guessed = []
+    while guesses > 0 and "_" in hidden_word:
+        guess = input("Input letter or guess the word")
+        if guess.isalpha() and not in guessed:
+            if len(guess) == len(word):
+                if guess == word:
+                    break
+                else:
+                    guessed.append(guess)
+                    guesses -= 1
+                    continue
+            elif len(guess) == 1:
+                if guess in word:
+                    for i in len(word):
+                        word.index(guess)
+                    
 
-    while guesses > 0:
+
+            else:
+                print("Length of guessed word does not match the Hidden Word")
+                guesses -= 1
+                continue
+        
+
+
+
         
 
 
