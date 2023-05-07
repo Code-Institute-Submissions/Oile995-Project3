@@ -30,18 +30,22 @@ def game_loop(word):
         else:
             break
     input("PRESS ANYTHING TO START")
-    print(word)
     hidden_word = []
     for i in range(len(word)):
         hidden_word.insert(i, "_")
-    print(*hidden_word, sep = " ")
+    score = 0
     guesses = 10
     guessed = []
     while guesses > 0 and "_" in hidden_word:
-        guess = input("Input letter or guess the word")
-        if guess.isalpha() and not in guessed:
+        print(f"Guesses left: {guesses}")
+        print("Guessed Words:")
+        print(*guessed, sep = ',')
+        print(*hidden_word, sep = " ")
+        guess = input("Input letter or guess the word:").upper()
+        if guess.isalpha() and guess not in guessed:
             if len(guess) == len(word):
                 if guess == word:
+                    score += 500
                     break
                 else:
                     guessed.append(guess)
@@ -49,20 +53,41 @@ def game_loop(word):
                     continue
             elif len(guess) == 1:
                 if guess in word:
-                    for i in len(word):
-                        word.index(guess)
-                    
-
+                    for i in range(len(word)):
+                        if guess == word[i]:
+                            hidden_word[i] = guess
+                            score += 50
+                    continue
+                else:
+                    guessed.append(guess)
+                    guesses -= 1
+                    continue
 
             else:
                 print("Length of guessed word does not match the Hidden Word")
                 guesses -= 1
+                guessed.append(guess)
                 continue
-        
-
-
-
-        
+        elif guess in guessed:
+            print(f"You have already guessed {guess} ")
+            continue
+        else:
+            print("No intergers allowed")
+    print(f"Word is: {word}")
+    set_score(score, word, guesses)
+    
+def set_score(score, word, guesses):
+    if score == 0:
+        print("Too bad, you are a hung one")
+    #elif len(word) < 5:
+        #score += pow(len(word),guesses)
+    #elif len(word) > 7:
+        #score += (guesses*200)
+    #elif guesses > 8:
+        #score += (guesses*300)
+    else:
+        score += pow(len(word),guesses)
+    print(f"Your final score is:{score}")
 
 
 
