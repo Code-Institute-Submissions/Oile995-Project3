@@ -9,6 +9,20 @@ animals = [
     "elephant",
     ]
 
+countries = [
+    "Angola",
+    "Belgium",
+    "Canada",
+    "Sweden"
+    ]
+
+food = [
+    "Tacos",
+    "Hamburger",
+    "Pizza",
+    "Lasagna",
+    "Sallad"
+    ]
 
 def get_word(category):
     """
@@ -17,6 +31,10 @@ def get_word(category):
     """
     if(category == 1):
         random_word = random.choice(animals)
+    elif(category == 2):
+        random_word = random.choice(countries)
+    elif(category == 3):
+        random_word = random.choice(food)
     else:
         print("did not choose animals")
     

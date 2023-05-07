@@ -4,6 +4,9 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from words import *
+#import math 
+import keyboard
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -18,6 +21,13 @@ SHEET = GSPREAD_CLIENT.open('Leaderboard')
 
 leaderboard = SHEET.worksheet('Leaderboard')
 def game_loop(word):
+    """
+    Function handle the main Game loop.
+    Ask for username the start input.
+    Initialize the variables being tracked during game loop
+    Then request valid guesses until word is found or out of guesses.
+    Finally calls score calculator function.
+    """
     print("welcome to game loop")
     while True:
         username = input("Enter your name:")
@@ -29,7 +39,7 @@ def game_loop(word):
             continue
         else:
             break
-    input("PRESS ANYTHING TO START")
+    input("PRESS ENTER TO START")
     hidden_word = []
     for i in range(len(word)):
         hidden_word.insert(i, "_")
@@ -74,11 +84,15 @@ def game_loop(word):
         else:
             print("No intergers allowed")
     print(f"Word is: {word}")
-    set_score(score, word, guesses)
+    score_calculator(score, word, guesses)
     
-def set_score(score, word, guesses):
+def score_calculator(score, word, guesses):
+    """
+    Function sets the score depending on parameters SCORE for correct guessed letters, 
+    length of WORD and GUESSES left
+    """
     if score == 0:
-        print("Too bad, you are a hung one")
+        print(f"Hangman is definitly not your thing.. Your score is:{score}")
     #elif len(word) < 5:
         #score += pow(len(word),guesses)
     #elif len(word) > 7:
@@ -88,31 +102,49 @@ def set_score(score, word, guesses):
     else:
         score += pow(len(word),guesses)
     print(f"Your final score is:{score}")
+    main_menu()
 
-
+def show_leaderboard():
+    """
+    Function prints out current Leaderboard from google spreadsheet
+    and awaits enter key press to go back to main menu.
+    """
+    score_sheet = leaderboard.get_all_values()
+    print(score_sheet)
+    input("Press ENTER to get back to Main menu")
+    main_menu()
+    
 
 def main_menu():
+    """
+    Function displays Main menu waiting for input 
+    1 to starting a new game
+    2 to call function to display Leaderboard
+    """
     while True:
         try:
             x = int(input("To start game type 1 or 2 to check the Leaderboards:"))
             print(x)
             if(x == 1):
                 print("start game")
-                category = int(input("Choose word Category:1 for animals, 2 for countries, 3 for "))
+                category = int(input("Choose word Category:1 for Animals, 2 for Countries, 3 for Foods:"))
                 random_word = get_word(category)
                 print(random_word)
                 break
             elif(x == 2):
-                print(leaderboard)
+                show_leaderboard()
             else:
-                print("Expected value is 1 or 2")
+                print(f"Expected option is 1 or 2. Not:{x}")
         except ValueError:
-            print('I said: Tell me a NUMBER!')
+            print(f"Sorry, a valid option number is expected! Not:{x}")
     
     game_loop(random_word)
         #raise Exception("Sorry, input should be 1 or 2")
 
 def welcome_message():
+    """
+    Function gives the initial Welcome message.
+    """
     print("Welcome to hangman")
     print("To play, enter a letter or guess the word")
 
