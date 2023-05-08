@@ -7,21 +7,36 @@ animals = [
     "cheetah",
     "dolphin",
     "elephant",
+    "firefly",
+    "golden retriever",
+    "mockingbird",
+    "starfish",
+    "wolverine"
     ]
 
 countries = [
     "Angola",
     "Belgium",
+    "Ecuador",
     "Canada",
-    "Sweden"
+    "Kazakhstan",
+    "Mozambique",
+    "Thailand",
+    "Sweden",
+    "United Kingdom"
     ]
 
 food = [
+    "baked beans",
     "Tacos",
     "Hamburger",
     "Pizza",
     "Lasagna",
-    "Sallad"
+    "Sallad",
+    "Waffles",
+    "Fried chicken",
+    "Mashed potatoes",
+    "Oatmeal"
     ]
 
 

@@ -28,7 +28,11 @@ def game_loop(word, username):
     """
     hidden_word = []
     for i in range(len(word)):
-        hidden_word.insert(i, "_")
+        if word[i] == " ":
+            print("found a space")
+            hidden_word.insert(i, " ")
+        else:
+            hidden_word.insert(i, "_")
     score = 0
     guesses = 10
     guessed = []
@@ -38,7 +42,7 @@ def game_loop(word, username):
         print(*guessed, sep=',')
         print(*hidden_word, sep=" ")
         guess = input("Input letter or guess the word:").upper()
-        if guess.isalpha() and guess not in guessed:
+        if not (any(char.isdigit() for char in guess)) and (guess not in guessed):
             if len(guess) == len(word):
                 if guess == word:
                     score += 500
@@ -53,15 +57,14 @@ def game_loop(word, username):
                         if guess == word[i]:
                             hidden_word[i] = guess
                             score += 50
+                    guessed.append(guess)
                     continue
                 else:
                     guessed.append(guess)
                     guesses -= 1
                     continue
-
             else:
                 print("Length of guessed word does not match the Hidden Word")
-                guesses -= 1
                 guessed.append(guess)
                 continue
         elif guess in guessed:
@@ -111,12 +114,12 @@ def show_leaderboard():
     score_sheet.insert(0, score_head)
     for row in score_sheet:
         if row[0].isalpha():
-            print(f"{row[0]:<20} {row[1]:<20} {row[2]}")
+            print(f"{row[0]:<10} {row[1]:<20} {row[2]}")
             continue
         else:
             row[0] = position
             position += 1
-            print(f"{row[0]:<20} {row[1]:<20} {row[2]}")
+            print(f"{row[0]:<10} {row[1]:<20} {row[2]}")
     input("Press ENTER to get back to Main menu")
     main_menu()
 
@@ -132,8 +135,9 @@ def new_game(category):
     print(random_word)
     while True:
         username = input("Enter your name:")
-        if len(username) == 0:
-            print("Please enter a username!")
+        if len(username) < 2 or len(username) > 20:
+            print("Please enter a valid username longer than "
+                  "2 and less than 20 characters!")
             continue
         elif username.isdigit():
             print("Username must include letters!")
