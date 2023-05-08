@@ -20,26 +20,15 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Leaderboard')
 
 leaderboard = SHEET.worksheet('Leaderboard')
-def game_loop(word):
+
+
+def game_loop(word, username):
     """
     Function handle the main Game loop.
-    Ask for username the start input.
     Initialize the variables being tracked during game loop
     Then request valid guesses until word is found or out of guesses.
     Finally calls score calculator function.
     """
-    print("welcome to game loop")
-    while True:
-        username = input("Enter your name:")
-        if len(username) == 0:
-            print("Please enter a username!")
-            continue
-        elif username.isdigit():
-            print("Username must include letters!") 
-            continue
-        else:
-            break
-    input("PRESS ENTER TO START")
     hidden_word = []
     for i in range(len(word)):
         hidden_word.insert(i, "_")
@@ -49,8 +38,8 @@ def game_loop(word):
     while guesses > 0 and "_" in hidden_word:
         print(f"Guesses left: {guesses}")
         print("Guessed Words:")
-        print(*guessed, sep = ',')
-        print(*hidden_word, sep = " ")
+        print(*guessed, sep=',')
+        print(*hidden_word, sep=" ")
         guess = input("Input letter or guess the word:").upper()
         if guess.isalpha() and guess not in guessed:
             if len(guess) == len(word):
@@ -84,32 +73,32 @@ def game_loop(word):
         else:
             print("No intergers allowed")
     print(f"Word is: {word}")
-    score_calculator(score, word, guesses)
-    
-def score_calculator(score, word, guesses):
+    score_calculator(score, word, guesses, username)
+
+
+def score_calculator(score, word, guesses, username):
     """
-    Function sets the score depending on parameters SCORE for correct guessed letters, 
+    Function sets the score depending on parameters
+    SCORE for correct guessed letters,
     length of WORD and GUESSES left
     """
     if score == 0:
         print(f"Hangman is definitly not your thing.. Your score is:{score}")
-    #elif len(word) < 5:
-        #score += pow(len(word),guesses)
-    #elif len(word) > 7:
-        #score += (guesses*200)
-    #elif guesses > 8:
-        #score += (guesses*300)
     else:
-        score += pow(len(word),guesses)
+        score += pow(len(word), guesses)
     print(f"Your final score is:{score}")
+    add_to_leaderboard(score, username)
     main_menu()
 
-def add_to_leaderboard(score, username):
-    score_sheet = leaderboard.get_all_values()
-    
-    new_row = [number, username, score]
-    score_sheet.append_row(new_row)
 
+def add_to_leaderboard(score, username):
+    """
+    Function takes accuired score and assosicated username
+    and adds it to a new row in leaderboards.
+    """
+    number = len(leaderboard.col_values(1))
+    new_row = [number, username, score]
+    leaderboard.append_row(new_row)
 
 
 def show_leaderboard():
@@ -121,50 +110,94 @@ def show_leaderboard():
     score_head = score_sheet[0]
     score_sheet.pop(0)
     score_sheet.sort(reverse=True, key=lambda l: int(l[2]))
-    print(score_sheet)
     position = 1
     for row in score_sheet:
         row[0] = position
         position += 1
     score_sheet.insert(0, score_head)
-    pprint(score_sheet)
+    pprint(score_sheet, indent=4)
     input("Press ENTER to get back to Main menu")
     main_menu()
-    
+
+
+def new_game(category):
+    """
+    Function calls helper function for random word depending
+    on the category selected. Then request user to select a
+    valid username and call to start.
+    Calls game_loop and sends the random word and username through.
+    """
+    random_word = get_word(category)
+    print(random_word)
+    while True:
+        username = input("Enter your name:")
+        if len(username) == 0:
+            print("Please enter a username!")
+            continue
+        elif username.isdigit():
+            print("Username must include letters!")
+            continue
+        else:
+            break
+    input("PRESS ENTER TO START")
+    game_loop(random_word, username)
+
+
+def exit_game():
+    """
+    Helper function to print farwell message
+    and exit the game.
+    """
+    print("Thank you for playing Hangman! Hope to see you again soon!")
+    exit()
+
 
 def main_menu():
     """
-    Function displays Main menu waiting for input 
+    Function displays Main menu waiting for input
     1 to starting a new game
     2 to call function to display Leaderboard
     """
     while True:
         try:
-            x = int(input("To start game type 1 or 2 to check the Leaderboards:"))
+            x = int(input("To start game type 1 or 2 for"
+                          "Leaderboards and 3 to exit:"))
             print(x)
-            if(x == 1):
-                print("start game")
-                category = int(input("Choose word Category:1 for Animals, 2 for Countries, 3 for Foods:"))
-                random_word = get_word(category)
-                print(random_word)
+            if (x == 1):
+                print("Starting new game")
+                category = int(input("Choose word Category:1 for Animals,"
+                                     "2 for Countries, 3 for Foods:"))
                 break
-            elif(x == 2):
-                print("test")
+            elif (x == 2):
+                print("Showing the Leaderboard")
                 show_leaderboard()
+            elif (x == 3):
+                while True:
+                    exit_condition = str(input("Are you sure?"
+                                               "Press y/n:")).upper()
+                    if (exit_condition == "Y"):
+                        exit_game()
+                    elif (exit_condition == "N"):
+                        break
+                    else:
+                        print(f"Expected option Y or N. Not:{exit_condition}")
             else:
-                print(f"Expected option is 1 or 2. Not:{x}")
+                print(f"Expected option is 1, 2 or 3. Not:{x}")
         except ValueError:
             print(f"Sorry, a valid option number is expected! Not:{x}")
-    
-    game_loop(random_word)
-        #raise Exception("Sorry, input should be 1 or 2")
+
+    new_game(category)
+
 
 def welcome_message():
     """
     Function gives the initial Welcome message.
     """
     print("Welcome to hangman")
-    print("To play, enter a letter or guess the word")
+    print("To play, select a category and input your username")
+    print("Game rules: type a letter or guess the word")
+    print("The few wrong guesses = high score")
+
 
 welcome_message()
 main_menu()
