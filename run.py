@@ -4,8 +4,8 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from words import *
-#import math 
 import keyboard
+from pprint import pprint
 
 
 SCOPE = [
@@ -104,13 +104,30 @@ def score_calculator(score, word, guesses):
     print(f"Your final score is:{score}")
     main_menu()
 
+def add_to_leaderboard(score, username):
+    score_sheet = leaderboard.get_all_values()
+    
+    new_row = [number, username, score]
+    score_sheet.append_row(new_row)
+
+
+
 def show_leaderboard():
     """
     Function prints out current Leaderboard from google spreadsheet
     and awaits enter key press to go back to main menu.
     """
     score_sheet = leaderboard.get_all_values()
+    score_head = score_sheet[0]
+    score_sheet.pop(0)
+    score_sheet.sort(reverse=True, key=lambda l: int(l[2]))
     print(score_sheet)
+    position = 1
+    for row in score_sheet:
+        row[0] = position
+        position += 1
+    score_sheet.insert(0, score_head)
+    pprint(score_sheet)
     input("Press ENTER to get back to Main menu")
     main_menu()
     
@@ -132,6 +149,7 @@ def main_menu():
                 print(random_word)
                 break
             elif(x == 2):
+                print("test")
                 show_leaderboard()
             else:
                 print(f"Expected option is 1 or 2. Not:{x}")
