@@ -4,9 +4,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from words import *
-import keyboard
-from pprint import pprint
-
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -111,11 +108,15 @@ def show_leaderboard():
     score_sheet.pop(0)
     score_sheet.sort(reverse=True, key=lambda l: int(l[2]))
     position = 1
-    for row in score_sheet:
-        row[0] = position
-        position += 1
     score_sheet.insert(0, score_head)
-    pprint(score_sheet, indent=4)
+    for row in score_sheet:
+        if row[0].isalpha():
+            print(f"{row[0]:<20} {row[1]:<20} {row[2]}")
+            continue
+        else:
+            row[0] = position
+            position += 1
+            print(f"{row[0]:<20} {row[1]:<20} {row[2]}")
     input("Press ENTER to get back to Main menu")
     main_menu()
 
