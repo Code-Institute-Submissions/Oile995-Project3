@@ -5,6 +5,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from words import *
 
+
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -64,8 +65,8 @@ def game_loop(word, username):
                     guesses -= 1
                     continue
             else:
-                print("Length of guessed word does not match the Hidden Word")
                 guessed.append(guess)
+                print("Length of guessed word does not match the Hidden Word")
                 continue
         elif guess in guessed:
             print(f"You have already guessed {guess} ")
@@ -132,7 +133,7 @@ def new_game(category):
     Calls game_loop and sends the random word and username through.
     """
     random_word = get_word(category)
-    print(random_word)
+    #print(random_word)
     while True:
         username = input("Enter your name:")
         if len(username) < 2 or len(username) > 20:
