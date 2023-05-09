@@ -96,11 +96,25 @@ __Manual Testing__
 
 - All input-checks are working as intended. Incorrect input throws red error text and a new request for input.
 - Leaderboard is only showing the top 10 scores with indentation to display Names that are 20 characters long.
-- Usernames has to be longer than 1 character and shorter than 20.
+- Usernames has to be longer than 1 character and shorter than 20. <br>
+- Main menu <br>
 ![Main menu](documentation/images/python-menu.PNG) <br>
+- Leaderboards <br>
 ![Leaderboard](documentation/images/python-leaderboard.PNG) <br>
+- Quit game <br>
 ![Main Exit game](documentation/images/python-menu-quit.PNG) <br>
-
+- Categories <br>
+![Categories](documentation/images/python-categories.PNG) <br>
+- Username <br>
+![Username](documentation/images/python-name.PNG) <br>
+- Game loop 1 <br>
+![Game loop](documentation/images/python-game.PNG) <br>
+- Game loop 2 <br>
+![Game guesses](documentation/images/python-game-2.PNG) <br>
+- Win <br>
+![Win](documentation/images/python-win.PNG) <br>
+- Goodbye message on exit <br>
+![Goodbye](documentation/images/python-goodbye.PNG) <br>
 
 __Bugs__
 - During development that I dedicated extra time fixing:
@@ -170,3 +184,4 @@ __Information Sources:__
 
 ### KNOWN-BUGS
 - Currently no specific input exception for all input requests.
+- No other real bugs are known.
