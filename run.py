@@ -133,7 +133,7 @@ def new_game(category):
     Calls game_loop and sends the random word and username through.
     """
     random_word = get_word(category)
-    #print(random_word)
+    # print(random_word)
     while True:
         username = input("Enter your name:")
         if len(username) < 2 or len(username) > 20:
