@@ -42,7 +42,7 @@ def game_loop(word, username):
         print("Guessed Words:")
         print(*guessed, sep=',')
         print(*hidden_word, sep=" ")
-        guess = input("Input letter or guess the word:").upper()
+        guess = input("Input letter or guess the word:\n").upper()
         if not (any(char.isdigit() for char in guess)) and (guess not in guessed):
             if len(guess) == len(word):
                 if guess == word:
@@ -121,7 +121,7 @@ def show_leaderboard():
             row[0] = position
             position += 1
             print(f"{row[0]:<10} {row[1]:<20} {row[2]}")
-    input("Press ENTER to get back to Main menu")
+    input("Press ENTER to get back to Main menu\n")
     main_menu()
 
 
@@ -135,7 +135,7 @@ def new_game(category):
     random_word = get_word(category)
     # print(random_word)
     while True:
-        username = input("Enter your name:")
+        username = input("Enter your name:\n")
         if len(username) < 2 or len(username) > 20:
             print("Please enter a valid username longer than "
                   "2 and less than 20 characters!")
@@ -145,7 +145,7 @@ def new_game(category):
             continue
         else:
             break
-    input("PRESS ENTER TO START")
+    input("PRESS ENTER TO START\n")
     game_loop(random_word, username)
 
 
@@ -167,11 +167,11 @@ def main_menu():
     while True:
         try:
             x = int(input("To start game type 1 or 2 for"
-                          "Leaderboards and 3 to exit:"))
+                          "Leaderboards and 3 to exit:\n"))
             if (x == 1):
                 print("Starting new game")
                 category = int(input("Choose word Category:1 for Animals,"
-                                     "2 for Countries, 3 for Foods:"))
+                                     "2 for Countries, 3 for Foods:\n"))
                 break
             elif (x == 2):
                 print("Showing the Leaderboard")
@@ -179,7 +179,7 @@ def main_menu():
             elif (x == 3):
                 while True:
                     exit_condition = str(input("Are you sure?"
-                                               "Press y/n:")).upper()
+                                               "Press y/n:\n")).upper()
                     if (exit_condition == "Y"):
                         exit_game()
                     elif (exit_condition == "N"):
