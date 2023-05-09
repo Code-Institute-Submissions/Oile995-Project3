@@ -3,7 +3,7 @@
 Hangman ACF or Animals, Countries and Foods, is a python terminal game. It will challenge your word knowledge in 3 different categories: Animals, Countries and Foods.
 From 3 long lists of multiple different words depending on category, you will try and find the word regardless if it is a double or single word.
 
-![Responsive Mockup]()
+![Responsive Mockup](documentation/images/python-hangman-front.PNG)
 
 ## Index - Table of Contents
 * [How to play](#how-to-play)
