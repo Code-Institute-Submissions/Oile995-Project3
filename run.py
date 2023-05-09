@@ -168,7 +168,6 @@ def main_menu():
         try:
             x = int(input("To start game type 1 or 2 for"
                           "Leaderboards and 3 to exit:"))
-            print(x)
             if (x == 1):
                 print("Starting new game")
                 category = int(input("Choose word Category:1 for Animals,"
@@ -190,7 +189,7 @@ def main_menu():
             else:
                 print(f"Expected option is 1, 2 or 3. Not:{x}")
         except ValueError:
-            print(f"Sorry, a valid option number is expected! Not:{x}")
+            print(f"Sorry, a valid option number is expected!")
 
     new_game(category)
 
