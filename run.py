@@ -170,17 +170,22 @@ def main_menu():
     """
     while True:
         try:
-            x = int(input(Fore.WHITE + "To start game type 1 or 2 for"
+            x = int(input(Fore.WHITE + "To start game type 1 or 2 for "
                           "Leaderboards and 3 to exit:\n"))
             if (x == 1):
-                category = int(input("Choose word Category:1 for Animals,"
-                                     "2 for Countries, 3 for Foods:\n"))
-                break
+                while True:
+                    category = input(Fore.WHITE + "Choose word Category:1 for "
+                                     "Animals,2 for Countries,3 for Foods:\n")
+                    if category == "1" or category == "2" or category == "3":
+                        new_game(category)
+                    else:
+                        print(Fore.RED + f"Expected option 1, 2 or 3. "
+                              f"Not:{category}")
             elif (x == 2):
                 show_leaderboard()
             elif (x == 3):
                 while True:
-                    exit_condition = str(input(Fore.WHITE + "Are you sure?"
+                    exit_condition = str(input(Fore.WHITE + "Are you sure? "
                                                "Press y/n:\n")).upper()
                     if (exit_condition == "Y"):
                         exit_game()
@@ -193,8 +198,6 @@ def main_menu():
                 print(Fore.RED + f"Expected option is 1, 2 or 3. Not:{x}")
         except ValueError:
             print(Fore.RED + f"Sorry, a valid option number is expected!")
-
-    new_game(category)
 
 
 def welcome_message():
