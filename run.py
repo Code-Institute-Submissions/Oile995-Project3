@@ -111,9 +111,13 @@ def show_leaderboard():
     score_head = score_sheet[0]
     score_sheet.pop(0)
     score_sheet.sort(reverse=True, key=lambda l: int(l[2]))
+    if len(score_sheet) > 10:
+        top_ten = score_sheet[:10]
+    else:
+        top_ten =score_sheet
     position = 1
-    score_sheet.insert(0, score_head)
-    for row in score_sheet:
+    top_ten.insert(0, score_head)
+    for row in top_ten:
         if row[0].isalpha():
             print(f"{row[0]:<10} {row[1]:<20} {row[2]}")
             continue
