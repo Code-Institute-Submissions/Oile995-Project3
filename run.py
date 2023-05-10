@@ -24,6 +24,9 @@ def game_loop(word, username):
     Initialize the variables being tracked during game loop
     Then request valid guesses until word is found or out of guesses.
     Finally calls score calculator function.
+    The initial idea of the game-loop and what it does was taken from:
+    https://github.com/PedroCristo/portfolio_project_3
+    Digit checking for loop was taken from: https://shorturl.at/xDKRV
     """
     hidden_word = []
     for i in range(len(word)):
@@ -81,6 +84,8 @@ def score_calculator(score, word, guesses, username):
     Function sets the score depending on parameters
     SCORE for correct guessed letters,
     length of WORD and GUESSES left
+    The initial idea of the score calc helper function was taken from:
+    https://github.com/PedroCristo/portfolio_project_3
     """
     if score == 0:
         print(Fore.GREEN + f"Hangman is definitly not your thing.. "
@@ -104,8 +109,12 @@ def add_to_leaderboard(score, username):
 
 def show_leaderboard():
     """
-    Function prints out current Leaderboard from google spreadsheet
-    and awaits enter key press to go back to main menu.
+    Function prints out current top 10 from Leaderboard from
+    google spreadsheet and awaits enter key press to go back to main menu.
+    The initial idea of the function to display leaderboards was taken from:
+    https://github.com/PedroCristo/portfolio_project_3
+    Code on sorting list in list with lambda taken from:
+    https://shorturl.at/aoEI8
     """
     score_sheet = leaderboard.get_all_values()
     score_head = score_sheet[0]
@@ -165,8 +174,11 @@ def exit_game():
 def main_menu():
     """
     Function displays Main menu waiting for input
-    1 to starting a new game
+    1 to set category and call function to starting a new game
     2 to call function to display Leaderboard
+    3 to check if you want to quit and to call exit function.
+    The initial idea of the main menu and what it does was taken from:
+    https://github.com/PedroCristo/portfolio_project_3
     """
     while True:
         try:

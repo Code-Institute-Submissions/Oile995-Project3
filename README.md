@@ -155,14 +155,15 @@ The live link can be found here - [Hangman ACF!](https://hangman-acf.herokuapp.c
 
 __Content__
 - Content and layout was loosely based on Things to keep in mind PP3 Example Hangman by [PedroCristo](https://github.com/PedroCristo)
+His code helped the inception of my project and used as examples a few times when I got stuck with logical layout of my code.
 
 __Code__
 - Base template repository for html + js and mockterminal take from: [Code Institute Python Essenstials Template](https://github.com/Code-Institute-Org/python-essentials-template)
 
 - Initial layout of code, from main menu, game-loop to helper functions for leaderboards, score and external words file was taken from Things to keep in mind PP3 Example Hangman by [PedroCristo](https://github.com/PedroCristo)
 - Idea of using colorama to color text based on its value taken from [PedroCristo](https://github.com/PedroCristo) and how to implement it from [Colorama](https://pypi.org/project/colorama/) 
-- For loop for checking for digit in string take from [Stack Overflow](https://stackoverflow.com/questions/19859282/check-if-a-string-contains-a-number)
 - Creating and adding the api for Gspread and code on how to use it taken from [Code Institute´s Love sandwiches](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+LS101+2021_T1/courseware/293ee9d8ff3542d3b877137ed81b9a5b/071036790a5642f9a6f004f9888b6a45/?child=first) 
+- For loop for checking for digit in string take from [Stack Overflow](https://stackoverflow.com/questions/19859282/check-if-a-string-contains-a-number)
 - Python built in math for Pow used for score taken from [W3School python](https://www.w3schools.com/python/ref_func_pow.asp)
 - Code on how to sort list based on list in list with lambda taken from [Java2blog](https://java2blog.com/python-sort-list-of-lists/)
 - Nice printing of Leaderboard with f-string taken from [Delftstack](https://www.delftstack.com/howto/python/python-print-column-alignment/)

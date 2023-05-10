@@ -44,6 +44,8 @@ def get_word(category):
     """
     This function gets called with the theme choice parameter
     and gets a random word from choosen word list.
+    The Idea of this function and what it does was taken from:
+    https://github.com/PedroCristo/portfolio_project_3
     """
     try:
         if (category == "1"):
